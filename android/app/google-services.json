@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "509165751274",
+    "project_id": "receitadodia-a84fd",
+    "storage_bucket": "receitadodia-a84fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509165751274:android:e2e6b5fadbcdd238a28093",
+        "android_client_info": {
+          "package_name": "com.receitadodia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509165751274-o014f1k9h3j67bnpp92mctm11gag7aoc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT5-MtBu0ecuOXEdJs5HHWyZWne5S8qqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "509165751274-o014f1k9h3j67bnpp92mctm11gag7aoc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
