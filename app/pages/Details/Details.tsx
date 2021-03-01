@@ -3,12 +3,14 @@ import { Image, View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { styles } from './Details.style'
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
-import CheckBox from '@react-native-community/checkbox';
+
 
 function Details() {
   const [action, setAction] = useState('pictures')
 
   return (
+
+    
     <ScrollView
       style={styles.container}
     >
@@ -17,10 +19,11 @@ function Details() {
           source={require('../../assets/lasanha.jpg')}
           style={styles.img}
         />
+        
       </View>
 
       <View style={styles.actionsSection}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[styles.btnAction, { backgroundColor: action === 'pictures' ? '#9e1529': '#FFFFFF'}]}
           onPress={() => setAction('pictures')}
         >
@@ -33,14 +36,14 @@ function Details() {
         >
           <Icon name="video" size={20} color={action === 'video' ? '#FFFFFF' : '#9e1529'} style={styles.actionIcon} />
           <Text style={[styles.btnActionTxt, { color: action === 'video' ? '#FFFFFF' : '#9e1529'}]}>Vídeo</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View>
 
         <Text
           style={styles.title}
         >
-          Stir Fry Zucchini Noodles
+          Moqueca de Banana da Terra
         </Text>
       </View>
 
@@ -77,62 +80,79 @@ function Details() {
         </View>
       </View>
 
+      <View>
+        <Text style={styles.recipeSectionAds}>
+          espaço para ganhar dinheiro
+          </Text>
+      </View>
+
       <View style={styles.recipeSection}>
-        <Icon style={styles.iconMargin} color={'#9e1529'} name="list" size={20} />
         <Text style={styles.recipeSectionTxt}>INGREDIENTES</Text>
       </View>
 
       <View style={styles.ingredientsRow}>
-        <CheckBox
-          tintColor={'#9e1529'}
-          onCheckColor={'#9e1529'}
-          onFillColor={'#9e1529'}
-          onTintColor={'#9e1529'}
-        />
-        <Text>6 Bifes de filé mignon</Text>
-      </View>
-      <View style={styles.ingredientsRow}>
-        <CheckBox
-          tintColor={'#9e1529'}
-        />
-        <Text style={styles.txtWrap}>1 vidro pequeno de champignon fatiado em lâminas finas</Text>
-      </View>
-      <View style={styles.ingredientsRow}>
-        <CheckBox tintColor={'#9e1529'}  />
-        <Text>4 colheres de sopa de manteiga</Text>
-      </View>
-      <View style={styles.ingredientsRow}>
-        <CheckBox tintColor={'#9e1529'}  />
-        <Text>1 cebola média picadinha</Text>
-      </View>
-      <View style={styles.ingredientsRow}>
-        <CheckBox tintColor={'#9e1529'}  />
-        <Text>2 tabletes de caldo de carne</Text>
+        <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+        <Text style={styles.ingredientsRowData}>6 Bifes de filé mignon</Text>
       </View>
 
+      <View style={styles.ingredientsRow}>
+        <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+        <Text style={styles.ingredientsRowData}>1 vidro pequeno de champignon fatiado em lâminas finas</Text>
+      </View>
+
+      <View style={styles.ingredientsRow}>
+        <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+        <Text style={styles.ingredientsRowData}>4 colheres de sopa de manteiga</Text>
+      </View>
+
+      <View style={styles.ingredientsRow}>
+        <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+        <Text style={styles.ingredientsRowData}>1 cebola média picadinha</Text>
+      </View>
+
+      <View style={styles.ingredientsRow}>
+        <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+        <Text style={styles.ingredientsRowData}>2 tabletes de caldo de carne</Text>
+      </View>
+
+
+
+      <View>
+        <Text style={styles.recipeSectionAds}>
+          espaço para ganhar dinheiro
+          </Text>
+      </View>
+
+
       <View style={styles.recipeSection}>
-        <Icon style={styles.iconMargin} color={'#9e1529'} name="drumstick-bite" size={20} />
-        <Text style={styles.recipeSectionTxt}>MODO DE PREPARO</Text>
+        <Text style={styles.recipeSectionTxt}>PREPARO</Text>
       </View>
 
       <View style={styles.preparationMode}>
         <View style={styles.preparationRow}>
-          <Text style={styles.preparationStep}>1. </Text>
-          <Text>Frite os bifes em 2 colheres de manteiga e reserve.</Text>
+          <Text style={styles.preparationRowStep}>1</Text>
+          <Text style={styles.preparationRowData}>Frite os bifes em 2 colheres de manteiga e reserve.</Text>
         </View>
         <View style={styles.preparationRow}>
-          <Text style={styles.preparationStep}>2. </Text>
-          <Text>Em seguida refogue na manteiga a cebola, o champignon e os tabletes de carne.</Text>
+          <Text style={styles.preparationRowStep}>2</Text>
+          <Text style={styles.preparationRowData}>Em seguida refogue na manteiga a cebola, o champignon e os tabletes de carne.</Text>
         </View>
         <View style={styles.preparationRow}>
-          <Text style={styles.preparationStep}>3. </Text>
-          <Text>Em seguida dilua o amido de milho em 1/4 xícara de água e acrescente ao molho para engrossar.</Text>
+          <Text style={styles.preparationRowStep}>3</Text>
+          <Text style={styles.preparationRowData}>Em seguida dilua o amido de milho em 1/4 xícara de água e acrescente ao molho para engrossar.</Text>
         </View>
         <View style={styles.preparationRow}>
-          <Text style={styles.preparationStep}>4. </Text>
-          <Text>Acrescente o vinho e deixe ferver por uns 10 minutos.</Text>
+          <Text style={styles.preparationRowStep}>4</Text>
+          <Text style={styles.preparationRowData}>Acrescente o vinho e deixe ferver por uns 10 minutos.</Text>
         </View>
       </View>
+
+      <View>
+        <Text style={styles.recipeSectionAds}>
+          espaço para ganhar dinheiro
+          </Text>
+      </View>
+
     </ScrollView>
   )
 }

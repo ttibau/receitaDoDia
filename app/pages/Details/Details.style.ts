@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -18,9 +19,9 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
-    marginTop: 8,
+    margin: 8,
   },
 
   recipeDetails: {
@@ -48,17 +49,28 @@ export const styles = StyleSheet.create({
   },
 
   recipeSection: {
-    flexDirection: 'row',
     marginTop: 20,
+    marginBottom:20, 
   },
 
   recipeSectionTxt: {
     fontWeight: 'bold',
-    color: '#000',
+    color: '#9e1529',
+    textAlign:"center",
     fontSize: 22,
   },
 
+  recipeSectionAds: {
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign:"center",
+    fontSize: 22,
+    margin: 30,
+  },
+
+
   iconMargin: {
+    textAlign:"center",
     marginTop: 5,
     marginRight: 5,
   },
@@ -93,11 +105,22 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
+    marginBottom:10
+  },
+
+  ingredientsRowTab: {
+    fontSize: 10,
+    marginLeft:15,
+  },
+
+  ingredientsRowData: {
+    marginLeft:25,
   },
 
   txtWrap: {
     flexShrink: 1,
     width: '100%',
+    paddingLeft: 5,
   },
 
   preparationMode: {
@@ -110,8 +133,12 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
 
-  preparationStep: {
+  preparationRowStep: {
     fontWeight: 'bold',
-    fontSize: 26,
+    fontSize: 20,
+  },
+
+  preparationRowData: {
+    marginLeft:25,
   },
 })
