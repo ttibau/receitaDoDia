@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Platform,
@@ -9,8 +9,10 @@ import RecipeSection from '../../components/RecipeSection/RecipeSection';
 import { styles } from './Home.styles'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from "react-native-vector-icons/dist/FontAwesome5";
+import firestore from "@react-native-firebase/firestore";
 
-function Home() {
+
+function Home({navigation} :any) {
 
   const [date, setDate] = useState(new Date());
   const [showPicker, setShow] = useState(false);
@@ -20,6 +22,20 @@ function Home() {
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
+
+  useEffect(() => {
+
+    async function getRecipes() {
+      let response = await firestore()
+        .collection('receitas')
+        .get();
+
+      console.log(response)
+
+    }
+
+    getRecipes()
+  }, [])
 
   const showDatePicker = () => {
     setShow(true);
@@ -57,9 +73,9 @@ function Home() {
             onChange={onChange}
           />
         )}
-        <RecipeSection />
-        <RecipeSection />
-        <RecipeSection />
+        <RecipeSection navigation={navigation}/>
+        <RecipeSection navigation={navigation}/>
+        <RecipeSection navigation={navigation}/>
       </View>
   )
 }

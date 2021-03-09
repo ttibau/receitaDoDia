@@ -4,9 +4,9 @@ import { styles } from './RecipeSection.style'
 // @ts-ignore
 import Icon from "react-native-vector-icons/dist/FontAwesome5";
 
-function RecipeSection() {
+function RecipeSection({ navigation }) {
   return (
-    <View style={{ marginBottom: 20}}>
+    <TouchableOpacity style={{ marginBottom: 20}} onPress={() => navigation.navigate('Details')}>
       <ImageBackground
         style={styles.imgBackground}
         source={require('../../assets/pasta.jpg')}
@@ -27,7 +27,7 @@ function RecipeSection() {
         </View>
       </ImageBackground>
       <Text style={styles.recipeTitle}>Macarrão com salsicha do refeitório</Text>
-    </View>
+    </TouchableOpacity>
   )
 }
 
