@@ -16,6 +16,7 @@ function Home({navigation} :any) {
 
   const [date, setDate] = useState(new Date());
   const [showPicker, setShow] = useState(false);
+  const [recipeList, setRecipeList] = useState();
 
   const onChange = (event:any, selectedDate:any) => {
     const currentDate = selectedDate || date;
@@ -26,9 +27,14 @@ function Home({navigation} :any) {
   useEffect(() => {
 
     async function getRecipes() {
-      let response = await firestore()
-        .collection('receitas')
-        .get();
+      try {
+        let response = await firestore()
+          .collection('receitas')
+          .get();
+        setRecipeList(response)
+      } catch(error) {
+        console.log(error)
+      }
 
       console.log(response)
 
