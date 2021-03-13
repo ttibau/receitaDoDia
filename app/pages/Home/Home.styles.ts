@@ -5,8 +5,20 @@ export const styles = StyleSheet.create({
     flex:1 ,
   },
 
+  loadingContainer: {
+    alignItems: 'center', 
+    justifyContent: 'center',
+    height: '100%'
+  },
+
   recipeSection: {
     margin: 15,
+  },
+
+  loadingTxt: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center'
   },
 
   btnDatePicker: {
