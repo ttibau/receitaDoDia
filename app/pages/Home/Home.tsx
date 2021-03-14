@@ -8,10 +8,10 @@ import {
 import RecipeSection, { IRecipe } from '../../components/RecipeSection/RecipeSection';
 import { styles } from './Home.styles'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import Icon from "react-native-vector-icons/dist/FontAwesome5";
 import firestore from "@react-native-firebase/firestore";
 import LottieView from 'lottie-react-native';
-import { InterstitialAd, RewardedAd, BannerAd, TestIds, AdEventType } from '@react-native-firebase/admob';
+import { InterstitialAd, AdEventType } from '@react-native-firebase/admob';
+import { format } from 'date-fns';
 
 
 const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/9884755347', {
@@ -25,24 +25,28 @@ function Home({navigation} :any) {
   const [recipeList, setRecipeList] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [bannerLoaded, setBannerLoaded] = useState<boolean>(true);
-
+  const [today, setToday] = useState(new Date());
 
   const onChange = (event:any, selectedDate:any) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
+    setToday(selectedDate);
   };
 
   useEffect(() => {
     
     async function getRecipes() {
       setLoading(true);
+      let formatted = format(today,"yyyyMMdd");
       try {
         let response : any = await firestore()
           .collection('receitas')
-          .doc('20210308')
+          .doc(formatted)
           .get();
-          setRecipeList(response._data.receitas)
+        if(response._data)
+          console.log(response)
+          // setRecipeList(response._data.receitas)
           setLoading(false);
       } catch(error) {
         console.log(error);
@@ -110,7 +114,7 @@ function Home({navigation} :any) {
                 <Text
                   style={styles.dateLabel}
                 >
-                  12/02/2021
+                  {format(today,"dd/MM/yyyy")}
                 </Text>
               </TouchableOpacity>
 
@@ -126,7 +130,7 @@ function Home({navigation} :any) {
               />
             )}
 
-            {recipeList.map((recipe:IRecipe, index:number) => {
+            {recipeList.length > 0 && recipeList.map((recipe:IRecipe, index:number) => {
               return <RecipeSection key={index} data={recipe} navigation={navigation} />
             })}
           </>

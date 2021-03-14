@@ -23,13 +23,13 @@ function RecipeSection({ navigation, data }  : IRecipeProps) {
   return (
     <TouchableOpacity style={{ marginBottom: 20}} onPress={() => navigation.navigate('Details', { data })}>
       <ImageBackground
-        style={styles.imgBackground}
-        source={{ uri: data.imagem}}
+        style={styles.imgBackground }
+        source={{ uri: data.imagem }}
         imageStyle={{ borderRadius: 8}}
       >
-        <TouchableOpacity style={styles.btnFavorite}>
+        {/* <TouchableOpacity style={styles.btnFavorite}>
           <Icon name="star" size={20} color={'#c3c988'} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.recipeData}>
           <View style={styles.recipeInfo}>
             <Icon name="clock" size={20} color={'#FFFFFF'} />

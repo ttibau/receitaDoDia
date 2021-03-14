@@ -11,14 +11,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: 140,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     borderRadius: 8,
+    justifyContent: 'flex-end'
   },
 
   recipeData: {
     backgroundColor: '#9e1529',
     padding: 15,
-    alignSelf: 'flex-end',
+
     width: '30%',
     height: 140,
     borderBottomLeftRadius: 20,
