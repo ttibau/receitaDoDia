@@ -4,6 +4,8 @@ import { styles } from './Details.style'
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import  {IRecipe } from '../../components/RecipeSection/RecipeSection'
+import _ from 'lodash';
+import  Banner  from '../../components/Banner/Banner';
 
 function Details({ route, navigation }) {
   const [action, setAction] = useState('pictures')
@@ -13,6 +15,17 @@ useEffect(() => {
   setData(route.params.data)
 }, [route.params.data])
 
+const verifyDificulty = () => {
+  switch(route.params.data.dificuldade){
+    case 1: 
+      return 'Fácil';
+    case 2: 
+      return 'Médio';
+    case 3:
+      return 'Difícil';
+  }
+}
+
   return (
     <ScrollView
       style={styles.container}
@@ -20,7 +33,7 @@ useEffect(() => {
         <>
           <View style={styles.imgContainer}>
             <Image
-              source={require('../../assets/lasanha.jpg')}
+              source={{ uri: route.params.data.imagem }}
               style={styles.img}
             />
             
@@ -76,55 +89,38 @@ useEffect(() => {
               style={styles.box}
             >
               <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Icon name="star" size={20} color={'#FFFFFF'}  />
-                <Icon name="star" size={20} color={'#FFFFFF'} />
-                <Icon name="star" size={20} color={'#FFFFFF'} />
+                { _.times(route.params.data.dificuldade, (i:number) => (
+                  <Icon key={i} name="star" size={20} color={'#FFFFFF'}  />
+                ))}
               </View>
-              <Text style={styles.recipeDetailTxt}>Difícil</Text>
+              <Text style={styles.recipeDetailTxt}>{verifyDificulty()}</Text>
             </View>
           </View>
 
           <View>
-            <Text style={styles.recipeSectionAds}>
-              espaço para ganhar dinheiro
-              </Text>
+            <Banner 
+              id={'ca-app-pub-9770723451826598/4885092994'}
+              size={'MEDIUM_RECTANGLE'}
+            />
           </View>
 
           <View style={styles.recipeSection}>
             <Text style={styles.recipeSectionTxt}>INGREDIENTES</Text>
           </View>
 
-          <View style={styles.ingredientsRow}>
-            <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-            <Text style={styles.ingredientsRowData}>6 Bifes de filé mignon</Text>
-          </View>
-
-          <View style={styles.ingredientsRow}>
-            <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-            <Text style={styles.ingredientsRowData}>1 vidro pequeno de champignon fatiado em lâminas finas</Text>
-          </View>
-
-          <View style={styles.ingredientsRow}>
-            <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-            <Text style={styles.ingredientsRowData}>4 colheres de sopa de manteiga</Text>
-          </View>
-
-          <View style={styles.ingredientsRow}>
-            <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-            <Text style={styles.ingredientsRowData}>1 cebola média picadinha</Text>
-          </View>
-
-          <View style={styles.ingredientsRow}>
-            <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-            <Text style={styles.ingredientsRowData}>2 tabletes de caldo de carne</Text>
-          </View>
-
+          {route.params.data.ingredientes.map((ingrediente:string, index:number) => (
+            <View key={index} style={styles.ingredientsRow}>
+              <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+              <Text style={styles.ingredientsRowData}>{ingrediente}</Text>
+            </View>
+          ))}
 
 
           <View>
-            <Text style={styles.recipeSectionAds}>
-              espaço para ganhar dinheiro
-              </Text>
+            <Banner 
+              id={'ca-app-pub-9770723451826598/9754276296'}
+              size={'MEDIUM_RECTANGLE'}
+            />
           </View>
 
 
@@ -133,28 +129,19 @@ useEffect(() => {
           </View>
 
           <View style={styles.preparationMode}>
-            <View style={styles.preparationRow}>
-              <Text style={styles.preparationRowStep}>1</Text>
-              <Text style={styles.preparationRowData}>Frite os bifes em 2 colheres de manteiga e reserve.</Text>
-            </View>
-            <View style={styles.preparationRow}>
-              <Text style={styles.preparationRowStep}>2</Text>
-              <Text style={styles.preparationRowData}>Em seguida refogue na manteiga a cebola, o champignon e os tabletes de carne.</Text>
-            </View>
-            <View style={styles.preparationRow}>
-              <Text style={styles.preparationRowStep}>3</Text>
-              <Text style={styles.preparationRowData}>Em seguida dilua o amido de milho em 1/4 xícara de água e acrescente ao molho para engrossar.</Text>
-            </View>
-            <View style={styles.preparationRow}>
-              <Text style={styles.preparationRowStep}>4</Text>
-              <Text style={styles.preparationRowData}>Acrescente o vinho e deixe ferver por uns 10 minutos.</Text>
-            </View>
+            {route.params.data.preparo.map((preparo: string, index:number) => (
+              <View key={index} style={styles.preparationRow}>
+                <Text style={styles.preparationRowStep}>{index + 1}</Text>
+                <Text style={styles.preparationRowData}>{preparo}</Text>
+              </View>
+            ))}
           </View>
 
           <View>
-            <Text style={styles.recipeSectionAds}>
-              espaço para ganhar dinheiro
-              </Text>
+            <Banner 
+              id={'ca-app-pub-9770723451826598/3012951585'}
+              size={'MEDIUM_RECTANGLE'}
+            />
           </View>
         </>
       

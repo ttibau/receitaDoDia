@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
     flex:1 ,
   },
 
+  dateDescription: {
+    fontSize: 11
+  },
+
   loadingContainer: {
     alignItems: 'center', 
     justifyContent: 'center',

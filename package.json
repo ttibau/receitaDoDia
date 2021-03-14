@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.7",
     "@react-native-community/datetimepicker": "^3.0.9",
+    "@react-native-firebase/admob": "^11.1.0",
     "@react-native-firebase/app": "^10.7.0",
     "@react-native-firebase/firestore": "^11.0.0",
     "@react-navigation/native": "^5.9.3",
@@ -29,11 +30,13 @@
     "@babel/runtime": "^7.8.4",
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/jest": "^25.2.3",
+    "@types/lodash": "^4.14.168",
     "@types/react-native": "^0.63.2",
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^25.1.0",
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
+    "lodash": "^4.17.21",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.13.1",
     "typescript": "^3.8.3"

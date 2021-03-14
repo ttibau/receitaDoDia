@@ -11,7 +11,12 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from "react-native-vector-icons/dist/FontAwesome5";
 import firestore from "@react-native-firebase/firestore";
 import LottieView from 'lottie-react-native';
+import { InterstitialAd, RewardedAd, BannerAd, TestIds, AdEventType } from '@react-native-firebase/admob';
 
+
+const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/9884755347', {
+  requestNonPersonalizedAdsOnly: true,
+});
 
 function Home({navigation} :any) {
 
@@ -19,6 +24,8 @@ function Home({navigation} :any) {
   const [showPicker, setShow] = useState(false);
   const [recipeList, setRecipeList] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [bannerLoaded, setBannerLoaded] = useState<boolean>(true);
+
 
   const onChange = (event:any, selectedDate:any) => {
     const currentDate = selectedDate || date;
@@ -27,6 +34,7 @@ function Home({navigation} :any) {
   };
 
   useEffect(() => {
+    
     async function getRecipes() {
       setLoading(true);
       try {
@@ -41,7 +49,23 @@ function Home({navigation} :any) {
         setLoading(false);
       }
     }
+
     getRecipes()
+
+    const eventListener = interstitial.onAdEvent(type => {
+      if (type === AdEventType.LOADED) {
+        setBannerLoaded(true);
+      }
+    });
+
+    // Start loading the interstitial straight away
+    interstitial.load();
+
+    // Unsubscribe from events on unmount
+    return () => {
+      eventListener();
+    };
+
   }, [])
 
   const showDatePicker = () => {
@@ -50,15 +74,24 @@ function Home({navigation} :any) {
 
   return (
       <View style={styles.recipeSection}>
-        {loading && 
-        <View style={styles.loadingContainer}>
-          <LottieView source={require('../../assets/loading.json')} style={{ width: 250, height: 250}} autoPlay loop />
-          <Text style={styles.loadingTxt}>Estamos procurando algo incrível para você!</Text>
-        </View>
+
+        {loading &&
+          <View style={styles.loadingContainer}>
+            <LottieView source={require('../../assets/loading.json')} style={{ width: 250, height: 250}} autoPlay loop />
+            <Text style={styles.loadingTxt}>Estamos procurando algo incrível para você!</Text>
+          </View>
         }
-        {!loading &&
+
+        {!bannerLoaded &&
+          <View style={styles.loadingContainer}>
+            <LottieView source={require('../../assets/loading.json')} style={{ width: 250, height: 250}} autoPlay loop />
+            <Text style={styles.loadingTxt}>Estamos procurando algo incrível para você!</Text>
+          </View>
+        }
+
+        {!loading && bannerLoaded &&
           <>
-            <View style={styles.searchbarSection}>
+            {/* <View style={styles.searchbarSection}>
               <Icon name="search" size={20} color={'#c3c988'} />
               <TextInput
                 style={styles.searchbar}
@@ -67,17 +100,21 @@ function Home({navigation} :any) {
                 placeholderTextColor={'#c3c988'}
               />
 
-            </View>
-            <TouchableOpacity
-              onPress={showDatePicker}
-              style={styles.btnDatePicker}
-            >
-              <Text
-                style={styles.dateLabel}
+            </View> */}
+            <View>
+              <Text style={styles.dateDescription}>clique na data para selecionar uma outra</Text>
+              <TouchableOpacity
+                onPress={showDatePicker}
+                style={styles.btnDatePicker}
               >
-                12/02/2021
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={styles.dateLabel}
+                >
+                  12/02/2021
+                </Text>
+              </TouchableOpacity>
+
+            </View>
             {showPicker && (
               <DateTimePicker
                 testID="dateTimePicker"
