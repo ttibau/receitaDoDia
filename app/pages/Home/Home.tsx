@@ -12,6 +12,9 @@ import firestore from "@react-native-firebase/firestore";
 import LottieView from 'lottie-react-native';
 import { InterstitialAd, AdEventType } from '@react-native-firebase/admob';
 import { format } from 'date-fns';
+import Timeline from 'react-native-timeline-flatlist'
+import add from 'date-fns/add'
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/9884755347', {
@@ -20,41 +23,50 @@ const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826
 
 function Home({navigation} :any) {
 
-  const [date, setDate] = useState(new Date());
-  const [showPicker, setShow] = useState(false);
   const [recipeList, setRecipeList] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [bannerLoaded, setBannerLoaded] = useState<boolean>(true);
   const [today, setToday] = useState(new Date());
 
-  const onChange = (event:any, selectedDate:any) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-    setToday(selectedDate);
-  };
+  async function getRecipes(data: string) {
+    try {
+      let response : any = await firestore()
+        .collection('receitas')
+        .doc(data)
+        .get();
+      if(response._data)
+        return response._data.receitas
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
+  // let formatted = format(today,"yyyyMMdd");
+  
 
   useEffect(() => {
     
-    async function getRecipes() {
+    const getRecipesEffect = async () => {
       setLoading(true);
-      let formatted = format(today,"yyyyMMdd");
-      try {
-        let response : any = await firestore()
-          .collection('receitas')
-          .doc(formatted)
-          .get();
-        if(response._data)
-          console.log(response)
-          // setRecipeList(response._data.receitas)
-          setLoading(false);
-      } catch(error) {
-        console.log(error);
-        setLoading(false);
+      let fakeArray = []
+      for(let i = -2; i <= 2; i++) {
+        let formatted = addDays(today, i)
+        let formattedDate = format(formatted, 'yyyyMMdd')
+        let responseDate = await getRecipes(formattedDate)
+        fakeArray.push(responseDate[0])
       }
+      console.log(fakeArray)
+      setRecipeList(fakeArray)
+      setLoading(false);
     }
 
-    getRecipes()
+    getRecipesEffect()
 
     const eventListener = interstitial.onAdEvent(type => {
       if (type === AdEventType.LOADED) {
@@ -72,13 +84,9 @@ function Home({navigation} :any) {
 
   }, [])
 
-  const showDatePicker = () => {
-    setShow(true);
-  };
 
   return (
-      <View style={styles.recipeSection}>
-
+      <ScrollView style={styles.recipeSection}>
         {loading &&
           <View style={styles.loadingContainer}>
             <LottieView source={require('../../assets/loading.json')} style={{ width: 250, height: 250}} autoPlay loop />
@@ -95,47 +103,16 @@ function Home({navigation} :any) {
 
         {!loading && bannerLoaded &&
           <>
-            {/* <View style={styles.searchbarSection}>
-              <Icon name="search" size={20} color={'#c3c988'} />
-              <TextInput
-                style={styles.searchbar}
-                placeholder="Pesquisar..."
-                underlineColorAndroid="transparent"
-                placeholderTextColor={'#c3c988'}
-              />
-
-            </View> */}
-            <View>
-              <Text style={styles.dateDescription}>clique na data para selecionar uma outra</Text>
-              <TouchableOpacity
-                onPress={showDatePicker}
-                style={styles.btnDatePicker}
-              >
-                <Text
-                  style={styles.dateLabel}
-                >
-                  {format(today,"dd/MM/yyyy")}
-                </Text>
-              </TouchableOpacity>
-
-            </View>
-            {showPicker && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={'date'}
-                is24Hour={true}
-                display="default"
-                onChange={onChange}
-              />
-            )}
-
             {recipeList.length > 0 && recipeList.map((recipe:IRecipe, index:number) => {
-              return <RecipeSection key={index} data={recipe} navigation={navigation} />
+              return  (
+                <View key={index}>
+                  <RecipeSection data={recipe} navigation={navigation} />
+                </View>
+              )
             })}
           </>
         }
-      </View>
+      </ScrollView>
   )
 }
 
