@@ -57,8 +57,8 @@ function Home({navigation} :any) {
       let fakeArray = []
       for(let i = -2; i <= 2; i++) {
         let formatted = addDays(today, i)
-        let formattedDate = format(formatted, 'yyyyMMdd')
-        let responseDate = await getRecipes(formattedDate)
+        let formattedDate = format(formatted, 'yyyyMMdd');
+        let responseDate = await getRecipes(formattedDate);
         fakeArray.push(responseDate[0])
       }
       console.log(fakeArray)
@@ -66,7 +66,7 @@ function Home({navigation} :any) {
       setLoading(false);
     }
 
-    getRecipesEffect()
+    getRecipesEffect();
 
     const eventListener = interstitial.onAdEvent(type => {
       if (type === AdEventType.LOADED) {
