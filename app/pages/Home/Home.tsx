@@ -3,7 +3,7 @@ import {
   View,
   Platform,
   TouchableOpacity,
-  Text, TextInput
+  Text, TextInput, FlatList
 } from "react-native";
 import RecipeSection, { IRecipe } from '../../components/RecipeSection/RecipeSection';
 import { styles } from './Home.styles'
@@ -15,6 +15,7 @@ import { format } from 'date-fns';
 import Timeline from 'react-native-timeline-flatlist'
 import add from 'date-fns/add'
 import { ScrollView } from 'react-native-gesture-handler';
+import RecipeSelect from '../../components/RecipeSelect';
 
 
 const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/9884755347', {
@@ -35,7 +36,7 @@ function Home({navigation} :any) {
         .doc(data)
         .get();
       if(response._data)
-        return response._data.receitas
+        return response._data
     } catch(error) {
       console.log(error);
     }
@@ -58,8 +59,11 @@ function Home({navigation} :any) {
       for(let i = -2; i <= 2; i++) {
         let formatted = addDays(today, i)
         let formattedDate = format(formatted, 'yyyyMMdd');
+        console.log('%c⧭', 'color: #e50000', formattedDate);
         let responseDate = await getRecipes(formattedDate);
-        fakeArray.push(responseDate[0])
+        console.log('%c⧭', 'color: #ff0000', responseDate);
+        if(responseDate)
+          fakeArray.push(responseDate)
       }
       console.log(fakeArray)
       setRecipeList(fakeArray)
@@ -101,7 +105,20 @@ function Home({navigation} :any) {
           </View>
         }
 
+
         {!loading && bannerLoaded &&
+          <FlatList
+            horizontal
+            pagingEnabled={true}
+            showsHorizontalScrollIndicator={false}
+            legacyImplementation={false}
+            data={recipeList}
+            renderItem={item => <RecipeSelect item={item.item}/>}
+            keyExtractor={photo => photo.id}
+          />
+        }
+
+        {/* {!loading && bannerLoaded &&
           <>
             {recipeList.length > 0 && recipeList.map((recipe:IRecipe, index:number) => {
               return  (
@@ -111,7 +128,7 @@ function Home({navigation} :any) {
               )
             })}
           </>
-        }
+        } */}
       </ScrollView>
   )
 }

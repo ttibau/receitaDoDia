@@ -10,9 +10,13 @@ import  Banner  from '../../components/Banner/Banner';
 function Details({ route, navigation }) {
   const [action, setAction] = useState('pictures')
   const [data, setData] = useState<IRecipe>();
-useEffect(() => {
-  console.log('%c⧭', 'color: #00e600', route.params.data);
-  setData(route.params.data)
+
+
+  useEffect(() => {
+  console.warn(route.params.data);
+  if(route.params.data) {
+    setData(route.params.data)
+  }
 }, [route.params.data])
 
 const verifyDificulty = () => {
@@ -108,14 +112,14 @@ const verifyDificulty = () => {
             <Text style={styles.recipeSectionTxt}>INGREDIENTES</Text>
           </View>
 
-          {route.params.data.ingredientes.map((ingrediente:string, index:number) => (
-            <View key={index} style={styles.ingredientsRow}>
-              <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-              <Text style={styles.ingredientsRowData}>{ingrediente}</Text>
-            </View>
-          ))}
-
-
+          {route.params.data.ingredientes.map((ingrediente:string, index:number) => {
+              return (
+                <View key={index} style={styles.ingredientsRow}>
+                <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
+                <Text style={styles.ingredientsRowData}>{ingrediente.value}</Text>
+              </View>
+          )})}
+           
           <View>
             <Banner 
               id={'ca-app-pub-9770723451826598/9754276296'}
@@ -129,12 +133,14 @@ const verifyDificulty = () => {
           </View>
 
           <View style={styles.preparationMode}>
-            {route.params.data.preparo.map((preparo: string, index:number) => (
-              <View key={index} style={styles.preparationRow}>
-                <Text style={styles.preparationRowStep}>{index + 1}</Text>
-                <Text style={styles.preparationRowData}>{preparo}</Text>
-              </View>
-            ))}
+            {route.params.data.preparo.map((preparo: string, index:number) => {
+              return (
+                <View key={index} style={styles.preparationRow}>
+                  <Text style={styles.preparationRowStep}>{index + 1}</Text>
+                  <Text style={styles.preparationRowData}>{preparo.modo}</Text>
+                </View>
+              )
+            })}
           </View>
 
           <View>

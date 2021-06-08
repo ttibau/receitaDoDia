@@ -20,11 +20,12 @@ export interface IRecipe {
 }
 
 function RecipeSection({ navigation, data }  : IRecipeProps) {
+  const { imagem, tempo, caloria, nome } = data[0]
   return (
-    <TouchableOpacity style={{ marginBottom: 20}} onPress={() => navigation.navigate('Details', { data })}>
+    <TouchableOpacity style={{ marginBottom: 20}} onPress={() => navigation.navigate('Details', { data: data[0] })}>
       <ImageBackground
         style={styles.imgBackground }
-        source={{ uri: data.imagem }}
+        source={{ uri: imagem }}
         imageStyle={{ borderRadius: 8}}
       >
         {/* <TouchableOpacity style={styles.btnFavorite}>
@@ -33,15 +34,15 @@ function RecipeSection({ navigation, data }  : IRecipeProps) {
         <View style={styles.recipeData}>
           <View style={styles.recipeInfo}>
             <Icon name="clock" size={20} color={'#FFFFFF'} />
-            <Text style={styles.recipeDetailTxt}>{data.tempo}</Text>
+            <Text style={styles.recipeDetailTxt}>{tempo}</Text>
           </View>
           <View style={[styles.recipeInfo, { marginTop: 10, borderBottomWidth:  0}]}>
             <Icon name="heartbeat" size={20} color={'#FFFFFF'} />
-            <Text style={styles.recipeDetailTxt}>{data.caloria}</Text>
+            <Text style={styles.recipeDetailTxt}>{caloria}</Text>
           </View>
         </View>
       </ImageBackground>
-      <Text style={styles.recipeTitle}>{data.nome}</Text>
+      <Text style={styles.recipeTitle}>{nome}</Text>
     </TouchableOpacity>
   )
 }
