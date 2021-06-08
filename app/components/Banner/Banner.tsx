@@ -1,5 +1,5 @@
 import React from 'react'
-import {  BannerAd, BannerAdSize } from '@react-native-firebase/admob';
+import {  BannerAd } from '@react-native-firebase/admob';
 import { View } from 'react-native';
 
 interface IBanner {

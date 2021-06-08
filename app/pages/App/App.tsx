@@ -5,6 +5,7 @@ import Home from "../Home/Home";
 import Details from "../Details/Details";
 import NewHome from '../NewHome/NewHome';
 import HeaderFavorites from '../../components/HeaderFavorites/HeaderFavorites';
+import RecipesList from '../RecipesList/RecipesList';
 
 
 function App () {
@@ -18,18 +19,39 @@ function App () {
           options={{ 
             title: 'Receitas', 
             headerStyle: {
-              backgroundColor: '#d40000'
+              backgroundColor: '#d40000',
             }, 
             headerTintColor: '#FFFFFF', 
             headerRight: () => {
               return (
                 <HeaderFavorites />
               )
-            }
+            },
+          }}
+        />
+        <Stack.Screen 
+          name="recipeList"
+          component={RecipesList}
+          options={{ 
+            title: 'Lista', 
+            headerStyle: {
+              backgroundColor: '#d40000',
+            }, 
+            headerTintColor: '#FFFFFF', 
           }}
         />
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen 
+          name="Details" 
+          component={Details}
+          options={{ 
+            title: 'Detalhes', 
+            headerStyle: {
+              backgroundColor: '#d40000',
+            }, 
+            headerTintColor: '#FFFFFF', 
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )

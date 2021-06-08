@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Image, View, Text, ScrollView, TouchableOpacity } from "react-native";
+import React from "react";
+import { Image, View, Text, ScrollView } from "react-native";
 import { styles } from './Details.style'
 // @ts-ignore
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
-import  {IRecipe } from '../../components/RecipeSection/RecipeSection'
 import _ from 'lodash';
 import  Banner  from '../../components/Banner/Banner';
 
-function Details({ route, navigation }) {
-  const [action, setAction] = useState('pictures')
-  const [data, setData] = useState<IRecipe>();
-
-
-  useEffect(() => {
-  console.warn(route.params.data);
-  if(route.params.data) {
-    setData(route.params.data)
-  }
-}, [route.params.data])
+function Details({ route }) {
 
 const verifyDificulty = () => {
-  switch(route.params.data.dificuldade){
+  switch (route.params.dificuldade){
     case 1: 
       return 'Fácil';
     case 2: 
@@ -37,7 +26,7 @@ const verifyDificulty = () => {
         <>
           <View style={styles.imgContainer}>
             <Image
-              source={{ uri: route.params.data.imagem }}
+              source={{ uri: route.params.imagem }}
               style={styles.img}
             />
             
@@ -64,7 +53,7 @@ const verifyDificulty = () => {
             <Text
               style={styles.title}
             >
-            {route.params.data.nome}
+            {route.params.nome}
             </Text>
           </View>
 
@@ -75,25 +64,25 @@ const verifyDificulty = () => {
               style={styles.box}
             >
               <Icon name="clock" size={20} color={'#FFFFFF'} />
-              <Text style={styles.recipeDetailTxt}>{route.params.data.tempo}</Text>
+              <Text style={styles.recipeDetailTxt}>{route.params.tempo}</Text>
             </View>
             <View
               style={styles.box}
             >
               <Icon name="heartbeat" size={20} color={'#FFFFFF'} />
-              <Text style={styles.recipeDetailTxt}>{route.params.data.caloria} cal</Text>
+              <Text style={styles.recipeDetailTxt}>{route.params.caloria} cal</Text>
             </View>
             <View
               style={styles.box}
             >
               <Icon name="utensils" size={20} color={'#FFFFFF'} />
-              <Text style={styles.recipeDetailTxt}>{route.params.data.porcao} porções</Text>
+              <Text style={styles.recipeDetailTxt}>{route.params.porcao} porções</Text>
             </View>
             <View
               style={styles.box}
             >
               <View style={{ flexDirection: 'row', justifyContent: 'space-between'}}>
-                { _.times(route.params.data.dificuldade, (i:number) => (
+                { _.times(route.params.dificuldade, (i:number) => (
                   <Icon key={i} name="star" size={20} color={'#FFFFFF'}  />
                 ))}
               </View>
@@ -112,11 +101,11 @@ const verifyDificulty = () => {
             <Text style={styles.recipeSectionTxt}>INGREDIENTES</Text>
           </View>
 
-          {route.params.data.ingredientes.map((ingrediente:string, index:number) => {
+          {route.params.ingredientes.map((ingrediente:string, index:number) => {
               return (
                 <View key={index} style={styles.ingredientsRow}>
                 <Text style={styles.ingredientsRowTab}>{"\u2B24"}</Text>
-                <Text style={styles.ingredientsRowData}>{ingrediente.value}</Text>
+                <Text style={styles.ingredientsRowData}>{ingrediente}</Text>
               </View>
           )})}
            
@@ -133,11 +122,11 @@ const verifyDificulty = () => {
           </View>
 
           <View style={styles.preparationMode}>
-            {route.params.data.preparo.map((preparo: string, index:number) => {
+            {route.params.preparo.map((preparo: string, index:number) => {
               return (
                 <View key={index} style={styles.preparationRow}>
                   <Text style={styles.preparationRowStep}>{index + 1}</Text>
-                  <Text style={styles.preparationRowData}>{preparo.modo}</Text>
+                  <Text style={styles.preparationRowData}>{preparo}</Text>
                 </View>
               )
             })}
@@ -145,7 +134,7 @@ const verifyDificulty = () => {
 
           <View>
             <Banner 
-              id={'ca-app-pub-9770723451826598/3012951585'}
+              id={'ca-app-pub-9770723451826598/6499401843'}
               size={'MEDIUM_RECTANGLE'}
             />
           </View>
