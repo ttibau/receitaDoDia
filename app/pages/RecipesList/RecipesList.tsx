@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Alert,
     ActivityIndicator,
+    ScrollView
 } from 'react-native';
 import { getTypedRecipes } from '../../db/receitas';
 import {styles} from './styles';
@@ -52,8 +53,8 @@ function RecipesList({ route }) {
                 <ActivityIndicator />
             }
             {!loading && list.length > 0 &&
-                <View>
-                    {list.map((recipe:any, index:number) => (
+                <ScrollView style={styles.scroll}>
+                    {list.reverse().map((recipe:any, index:number) => (
                         <TouchableOpacity key={index} style={styles.container} onPress={() => navigation.navigate('Details', recipe)}>
                             <View style={styles.recipeRow}>
                                 <Image 
@@ -66,10 +67,11 @@ function RecipesList({ route }) {
                             </View>
                         </TouchableOpacity>
                     ))}
-                </View>
+                </ScrollView>
             }
         </View>
     )
 }
+
 
 export default RecipesList
