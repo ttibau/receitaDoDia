@@ -22,6 +22,7 @@ function HeaderFavorites() {
                     <Text style={modalTitle}>Estamos preparando algo incrível para você</Text>
                     <Text>Receitas favoritas</Text>
                     <Text>Melhorias no layout</Text>
+                    <Text>Pesquisar receitas</Text>
                     <LottieView source={require('../../assets/loading.json')} style={{ width: 100, height: 100}} autoPlay loop />
                     <TouchableOpacity onPress={() => setModalVisible(false)} style={btnCloseModal}>
                         <Text style={btnCloseModalTxt}>Fechar</Text>
