@@ -25,5 +25,22 @@ export const styles = StyleSheet.create({
     },
     scroll: {
         marginBottom: 30,
+    },
+    search: {
+        marginHorizontal: 15,
+    },
+    recipeDetailsRow: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    }, 
+    badgeContainer: {
+        padding: 5,
+        justifyContent: 'center', 
+        alignItems: 'center',
+        marginLeft: 10,
+        borderRadius: 10,
+    },
+    badgeTxt: {
+        color: '#FFFFFF'
     }
 })
