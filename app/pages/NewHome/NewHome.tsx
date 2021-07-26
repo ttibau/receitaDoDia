@@ -67,7 +67,7 @@ function NewHome() {
 
             {/* banner bottom */}
             <Banner 
-              id={'ca-app-pub-9770723451826598/3012951585'}
+              id={'ca-app-pub-5774339234804708/2371751274'}
               size={BannerAdSize.ADAPTIVE_BANNER}
             />
 

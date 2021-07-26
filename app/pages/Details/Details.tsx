@@ -5,7 +5,7 @@ import { styles } from './Details.style'
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
 import _ from 'lodash';
 import  Banner  from '../../components/Banner/Banner';
-import { InterstitialAd, TestIds, AdEventType } from '@react-native-firebase/admob';
+import { InterstitialAd, AdEventType } from '@react-native-firebase/admob';
 
 
 function Details({ route }) {
@@ -123,7 +123,7 @@ function Details({ route }) {
 
             <View>
               <Banner 
-                id={'ca-app-pub-9770723451826598/4885092994'}
+                id={'ca-app-pub-5774339234804708/1385332033'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>
@@ -142,7 +142,7 @@ function Details({ route }) {
             
             <View>
               <Banner 
-                id={'ca-app-pub-9770723451826598/9754276296'}
+                id={'ca-app-pub-5774339234804708/2506842016'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>
@@ -165,7 +165,7 @@ function Details({ route }) {
 
             <View>
               <Banner 
-                id={'ca-app-pub-9770723451826598/6499401843'}
+                id={'ca-app-pub-5774339234804708/1193760347'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>
