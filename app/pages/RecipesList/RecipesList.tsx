@@ -8,13 +8,15 @@ import {
     Alert,
     ActivityIndicator,
     ScrollView,
-    TextInput
+    TextInput,
+    ImageBackground
 } from 'react-native';
 import { getTypedRecipes } from '../../db/receitas';
 import {styles} from './styles';
 import { format } from 'date-fns'
 import Icon from 'react-native-vector-icons/dist/FontAwesome5';
-import { IRecipe } from '../../components/RecipeSection/RecipeSection';
+import Banner from '../../components/Banner/Banner';
+import { BannerAdSize } from '@react-native-firebase/admob';
 
 
 interface IRecipeContentProp {
@@ -55,15 +57,34 @@ const Badge = ({ name } : IBadgeProps ) => {
     )
 }
 
-function RecipeContent({ recipe } : IRecipeContentProp) {
+function verifyDate(recipe) {
+    let today = new Date()
+    return format(recipe.data.toDate(), 'dd/MM/yyyy') === format(today, 'dd/MM/yyyy')
+}
+
+function RecipeContainer({ recipe }) {
     return (
-        <View style={styles.recipeContent}>
-            <View style={styles.recipeDetailsRow}>
-                <Text>{format(recipe.data.toDate(), 'dd/MM/yyyy')}</Text>
-                <Badge name={recipe.tipo} />
-            </View>
-            <Text style={styles.recipeTitle}>{recipe.nome}</Text>
-            <Text>{recipe.description}</Text>
+        <View style={[styles.recipeContainer, { height: verifyDate(recipe) ? 150 : 100 }]}>
+            <ImageBackground
+                source={{
+                    uri: recipe.imagem,
+                }}
+                style={styles.recipeBackground}
+            >
+                <View style={[styles.recipeDate, { backgroundColor: !verifyDate(recipe) ? 'rgba(52, 73, 94, 0.8)' : 'rgba(212, 0, 0, 0.7)'}]}>
+                    <Text style={styles.recipeTxt}>{format(recipe.data.toDate(), 'dd/MM')}</Text>
+                </View>
+                <View 
+                    style={[
+                        styles.recipeNewTitle, 
+                        { 
+                            backgroundColor: !verifyDate(recipe) ? 'rgba(52, 73, 94, 0.8)' : 'rgba(212, 0, 0, 0.7)',
+                            marginTop: !verifyDate(recipe) ? 0 : '10%',
+                        },
+                    ]}>
+                    <Text style={styles.recipeNewTitleTxt}>{recipe.nome}</Text>
+                </View>
+            </ImageBackground>
         </View>
     )
 }
@@ -124,16 +145,27 @@ function RecipesList({ route }) {
                     {filteredRecipes.map((recipe:any, index:number) => (
                         <TouchableOpacity key={index} style={styles.container} onPress={() => navigation.navigate('Details', recipe)}>
                             <View style={styles.recipeRow}>
-                                <Image 
-                                    source={{
-                                        uri: recipe.imagem,
-                                    }}
-                                    style={styles.recipeImg}
-                                />
-                                <RecipeContent recipe={recipe}/>
+                                <RecipeContainer recipe={recipe} />
                             </View>
                         </TouchableOpacity>
                     ))}
+                    <TouchableOpacity style={styles.tomorrowRecipe}>
+                        <View style={styles.recipeRow}>
+                            <Image
+                                source={{
+                                    uri: 'https://img.icons8.com/doodle/452/apple-calendar--v1.png',
+                                }}
+                                style={styles.recipeImg}
+                            />
+                            <Text>asdf</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 20}}>
+                        <Banner 
+                            id={'ca-app-pub-9770723451826598/4885092994'}
+                            size={BannerAdSize.BANNER}
+                        />
+                    </View>
                 </ScrollView>
             </>
             }

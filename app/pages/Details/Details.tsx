@@ -10,7 +10,7 @@ import { InterstitialAd, AdEventType } from '@react-native-firebase/admob';
 
 function Details({ route }) {
 
-  const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/1593477950', {
+  const interstitial = InterstitialAd.createForAdRequest('ca-app-pub-9770723451826598/9884755347', {
     requestNonPersonalizedAdsOnly: true,
   });
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -29,6 +29,7 @@ function Details({ route }) {
   useEffect(() => {
     const eventListener = interstitial.onAdEvent(async type => {
       if (type === AdEventType.LOADED) {
+        console.log('BANNER CARREGOU')
         await interstitial.show();
       } else if (type === AdEventType.CLOSED) {
         setLoaded(true);
@@ -121,9 +122,9 @@ function Details({ route }) {
               </View>
             </View>
 
-            <View>
+            <View style={{ margin: 5, alignSelf: 'center'}}>
               <Banner 
-                id={'ca-app-pub-5774339234804708/1385332033'}
+                id={'ca-app-pub-9770723451826598/6499401843'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>
@@ -140,9 +141,9 @@ function Details({ route }) {
                 </View>
             )})}
             
-            <View>
+            <View style={{ margin: 5, alignSelf: 'center'}}>
               <Banner 
-                id={'ca-app-pub-5774339234804708/2506842016'}
+                id={'ca-app-pub-9770723451826598/9754276296'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>
@@ -163,9 +164,9 @@ function Details({ route }) {
               })}
             </View>
 
-            <View>
+            <View style={{ margin: 5, alignSelf: 'center'}}>
               <Banner 
-                id={'ca-app-pub-5774339234804708/1193760347'}
+                id={'ca-app-pub-9770723451826598/3012951585'}
                 size={'MEDIUM_RECTANGLE'}
               />
             </View>

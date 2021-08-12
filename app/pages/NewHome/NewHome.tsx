@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import  Banner  from '../../components/Banner/Banner';
-import {  BannerAdSize } from '@react-native-firebase/admob';
+import {  BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 interface NewHomeProps { 
     imagem: string;
@@ -66,10 +66,12 @@ function NewHome() {
             />
 
             {/* banner bottom */}
-            <Banner 
-              id={'ca-app-pub-5774339234804708/2371751274'}
-              size={BannerAdSize.ADAPTIVE_BANNER}
-            />
+            <View style={{ alignItems: 'center', marginTop: 20}}>
+                <Banner 
+                id={'ca-app-pub-9770723451826598/9329666001'}
+                size={BannerAdSize.BANNER}
+                />
+            </View>
 
         </ScrollView>
         
